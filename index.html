@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ONG AMIGOS SEM FRONTEIRAS | SPA</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Cabeçalho Institucional Padronizado -->
+  <header class="cabecalho">
+    <div class="cabecalho__conteudo">
+      <div class="cabecalho__identidade">
+        <picture>
+          <source srcset="img/Logo-ONG.webp" type="image/webp">
+          <img class="cabecalho__logo" src="img/Logo-ONG.png" alt="Logótipo da ONG Amigos Sem Fronteiras" width="120" height="120">
+        </picture>
+        <h1 class="cabecalho__titulo">ONG AMIGOS SEM FRONTEIRAS: Construindo Pontes</h1>
+      </div>
+      <!-- Menu de Navegação SPA por Hash -->
+      <nav class="cabecalho__menu menu" aria-label="Navegação Principal">
+        <ul class="menu__lista">
+          <li class="menu__item"><a class="menu__link" href="#/">Início</a></li>
+          <li class="menu__item"><a class="menu__link" href="#/projetos">Projetos</a></li>
+          <li class="menu__item"><a class="menu__link" href="#/cadastro">Quero Ajudar</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Ponto Central de Injeção do DOM -->
+  <main class="principal" id="app"></main>
+
+  <!-- Rodapé Institucional -->
+  <footer class="rodape">
+    <p class="rodape__texto">&copy; 2026 ONG AMIGOS SEM FRONTEIRAS. Todos os direitos reservados.</p>
+  </footer>
+
+  <!-- Scripts Modulares -->
+  <script src="js/templates.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

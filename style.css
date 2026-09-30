@@ -1,0 +1,393 @@
+/* ==========================================================================
+   1. DESIGN SYSTEM & VARIÁVEIS GLOBAIS (:root)
+   Centralização de propriedades para consistência visual e manutenibilidade.
+   ========================================================================== */
+:root {
+  /* Paleta Cromática Institucional (Mínimo de 8 cores) */
+  --cor-primaria: #1b4965;          /* Azul petróleo institucional */
+  --cor-primaria-hover: #133549;    /* Variação interativa de hover */
+  --cor-secundaria: #62b6cb;        /* Azul de apoio e foco de acessibilidade */
+  --cor-acento: #e65c00;            /* Laranja de alto contraste para CTAs e conversão */
+  --cor-sucesso: #2a9d8f;           /* Verde de confirmação / validação */
+  --cor-erro: #e76f51;              /* Vermelho terracota para estados de erro */
+
+  /* Cores Neutras e de Superfície */
+  --cor-fundo: #f8f9fa;             /* Fundo atenuado para prevenção de fadiga visual */
+  --cor-superficie: #ffffff;        /* Branco puro para cartões e contêineres */
+  --cor-texto-principal: #212529;   /* Cinza escuro com contraste > 10:1 (WCAG AA/AAA) */
+  --cor-texto-mutado: #495057;      /* Textos auxiliares e parágrafos secundários */
+  --cor-borda: #dee2e6;             /* Linhas delimitadoras e contornos sutis */
+
+  /* Escala Tipográfica (5 patamares hierárquicos em rem) */
+  --fonte-principal: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --tipo-h1: 2.25rem;               /* 36px - Títulos principais */
+  --tipo-h2: 1.75rem;               /* 28px - Títulos de seções */
+  --tipo-h3: 1.25rem;               /* 20px - Títulos de iniciativas e cartões */
+  --tipo-corpo: 1.0rem;             /* 16px - Leitura e corpo de texto */
+  --tipo-pequeno: 0.875rem;         /* 14px - Metadados, labels e rodapés */
+
+  /* Espaçamentos Modulares (Escala com base modular de 8px / 0.5rem) */
+  --espaco-xs: 0.5rem;              /* 8px */
+  --espaco-sm: 1.0rem;              /* 16px */
+  --espaco-md: 1.5rem;              /* 24px */
+  --espaco-lg: 2.0rem;              /* 32px */
+  --espaco-xl: 3.0rem;              /* 48px */
+
+  /* Efeitos e Raios */
+  --raio-borda: 8px;
+  --sombra-suave: 0 4px 16px rgba(0, 0, 0, 0.06);
+  --sombra-elevada: 0 10px 24px rgba(0, 0, 0, 0.12);
+  --transicao-padrao: all 0.3s ease;
+}
+
+/* Modo Noturno (Dark Mode) instantâneo via variáveis */
+[data-tema="dark"] {
+  --cor-fundo: #121212;
+  --cor-superficie: #1e1e1e;
+  --cor-texto-principal: #e0e0e0;
+  --cor-texto-mutado: #a0a0a0;
+  --cor-borda: #333333;
+}
+
+/* ==========================================================================
+   2. NORMALIZAÇÃO (RESET) & TIPOGRAFIA ESTRUTURAL
+   ========================================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--fonte-principal);
+  font-size: var(--tipo-corpo);
+  line-height: 1.6;
+  color: var(--cor-texto-principal);
+  background-color: var(--cor-fundo);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: var(--tipo-h1);
+  color: var(--cor-primaria);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+h2 {
+  font-size: var(--tipo-h2);
+  color: var(--cor-primaria);
+  font-weight: 600;
+  margin-bottom: var(--espaco-sm);
+}
+
+h3 {
+  font-size: var(--tipo-h3);
+  color: var(--cor-primaria);
+  font-weight: 600;
+  margin-bottom: var(--espaco-xs);
+}
+
+p {
+  color: var(--cor-texto-principal);
+  margin-bottom: var(--espaco-sm);
+}
+
+/* ==========================================================================
+   3. CABEÇALHO & NAVEGAÇÃO HORIZONTAL (Flexbox, Sticky e Acessibilidade)
+   ========================================================================== */
+.cabecalho {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--sombra-suave);
+  padding: var(--espaco-sm) var(--espaco-lg);
+}
+
+.cabecalho__conteudo {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--espaco-md);
+}
+
+.cabecalho__identidade {
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-md);
+}
+
+.cabecalho__logo {
+  height: 54px;
+  width: auto;
+  object-fit: contain;
+}
+
+.cabecalho__titulo {
+  font-size: 1.35rem;
+}
+
+.menu__lista {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  gap: var(--espaco-md);
+  margin: 0;
+  padding: 0;
+}
+
+.menu__link {
+  display: inline-block;
+  text-decoration: none;
+  color: var(--cor-primaria);
+  font-weight: 600;
+  padding: var(--espaco-xs) var(--espaco-sm);
+  border-radius: var(--raio-borda);
+  transition: var(--transicao-padrao);
+}
+
+.menu__link:hover {
+  color: var(--cor-acento);
+  transform: translateY(-2px);
+}
+
+/* Acessibilidade: Navegação visível por teclado via foco */
+.menu__link:focus-visible {
+  outline: 3px solid var(--cor-secundaria);
+  outline-offset: 3px;
+}
+
+/* ==========================================================================
+   4. MACROESTRUTURA DE LAYOUT (CSS Grid e Limites de Leitura)
+   ========================================================================== */
+.principal {
+  flex: 1;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: var(--espaco-xl) var(--espaco-md);
+}
+
+.secao {
+  background-color: var(--cor-superficie);
+  border-radius: var(--raio-borda);
+  padding: var(--espaco-xl);
+  margin-bottom: var(--espaco-xl);
+  box-shadow: var(--sombra-suave);
+}
+
+.secao__imagem {
+  margin: var(--espaco-md) 0 var(--espaco-lg);
+  border-radius: var(--raio-borda);
+  overflow: hidden;
+}
+
+.secao__imagem img {
+  width: 100%;
+  max-height: 480px;
+  object-fit: cover;
+  display: block;
+  border-radius: var(--raio-borda);
+  will-change: transform;
+}
+
+/* ==========================================================================
+   5. COMPONENTIZAÇÃO COM BEM E CSS GRID (Cards de Projetos e Pilares)
+   ========================================================================== */
+.grid-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--espaco-lg);
+  align-items: stretch;
+  margin-top: var(--espaco-md);
+}
+
+.card {
+  background-color: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-borda);
+  padding: var(--espaco-lg);
+  display: flex;
+  flex-direction: column;
+  transition: var(--transicao-padrao);
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--sombra-elevada);
+  border-color: var(--cor-secundaria);
+}
+
+.card__titulo {
+  font-size: var(--tipo-h3);
+  color: var(--cor-primaria);
+  margin-bottom: var(--espaco-xs);
+}
+
+.card__texto {
+  font-size: var(--tipo-corpo);
+  color: var(--cor-texto-mutado);
+  flex-grow: 1;
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   6. FORMULÁRIO INTERATIVO & PSEUDO-CLASSES (:focus, :valid, :invalid)
+   ========================================================================== */
+.formulario {
+  max-width: 600px;
+  margin: var(--espaco-md) auto 0;
+}
+
+.formulario__grupo {
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-borda);
+  padding: var(--espaco-lg);
+  background-color: var(--cor-superficie);
+}
+
+.formulario__legenda {
+  font-weight: 700;
+  color: var(--cor-primaria);
+  padding: 0 var(--espaco-xs);
+  font-size: var(--tipo-h3);
+}
+
+.formulario__campo {
+  margin-bottom: var(--espaco-md);
+}
+
+.formulario__rotulo {
+  display: inline-block;
+  font-size: var(--tipo-pequeno);
+  font-weight: 600;
+  color: var(--cor-texto-principal);
+  margin-bottom: var(--espaco-xs);
+}
+
+.formulario__input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: var(--tipo-corpo);
+  font-family: inherit;
+  border: 2px solid var(--cor-borda);
+  border-radius: var(--raio-borda);
+  outline: none;
+  background-color: #ffffff;
+  transition: var(--transicao-padrao);
+}
+
+/* Efeito de foco */
+.formulario__input:focus {
+  border-color: var(--cor-secundaria);
+  box-shadow: 0 0 0 3px rgba(98, 182, 203, 0.25);
+}
+
+/* Validação em tempo real */
+.formulario__input:valid {
+  border-color: var(--cor-sucesso);
+}
+
+.formulario__input:invalid:not(:placeholder-shown) {
+  border-color: var(--cor-erro);
+}
+
+/* Botão Moderno de Ação (CTA) */
+.botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background: linear-gradient(135deg, var(--cor-acento) 0%, #c44f00 100%);
+  color: #ffffff;
+  font-size: var(--tipo-corpo);
+  font-weight: 700;
+  border: none;
+  border-radius: var(--raio-borda);
+  padding: 0.875rem var(--espaco-lg);
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(230, 92, 0, 0.3);
+  transition: var(--transicao-padrao);
+}
+
+.botao:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(230, 92, 0, 0.45);
+}
+
+.botao:focus-visible {
+  outline: 3px solid var(--cor-primaria);
+  outline-offset: 3px;
+}
+
+/* ==========================================================================
+   7. RODAPÉ E CONTATO
+   ========================================================================== */
+.contato__dados {
+  font-style: normal;
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-xs);
+  margin-top: var(--espaco-sm);
+}
+
+.rodape {
+  background-color: var(--cor-primaria);
+  color: #ffffff;
+  text-align: center;
+  padding: var(--espaco-lg) var(--espaco-md);
+  margin-top: auto;
+}
+
+.rodape__texto {
+  color: #ffffff;
+  font-size: var(--tipo-pequeno);
+  margin: 0;
+}
+
+/* ==========================================================================
+   8. MEDIA QUERIES & ACESSIBILIDADE DE MOVIMENTO
+   ========================================================================== */
+@media (max-width: 768px) {
+  .cabecalho__conteudo {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .cabecalho__identidade {
+    flex-direction: column;
+  }
+
+  .menu__lista {
+    flex-direction: column;
+    width: 100%;
+    gap: var(--espaco-xs);
+  }
+
+  .menu__item {
+    width: 100%;
+  }
+
+  .menu__link {
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* Redução de movimento para usuários sensíveis */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
